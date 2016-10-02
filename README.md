@@ -30,7 +30,7 @@ when possible. I am not by any means an expert on Go internals, but my suspicion
 is that the reference to the writer closure is somehow not being detected by the
 garbage collector (perhaps due to some optimization (see stack trace below with
 optimizations disabled)) and that the closure is being reclaimed. If I add a
-`fmt.Println(writer)` after the closure, say on line 51 of `server.go`, or
+`fmt.Println(writer)` after the closure, say on line 54 of `server.go`, or
 temporarily retain the closure in the server structure itself until the
 `CreateDelta` call completes, the problem does not arise. However, I can also
 replace the closure with a write method on the `Server` type itself and this
