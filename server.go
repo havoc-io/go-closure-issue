@@ -57,7 +57,6 @@ func (s *Server) serveOne() error {
 	// are tracked separately). Any other errors are due to the source file and
 	// can occur regularly due to concurrent modification.
 	s.rsyncer.CreateDelta(target, request.BaseSignature, writer, nil)
-	writer = nil
 
 	// If there's an encoding error, return it.
 	if encodeError != nil {
