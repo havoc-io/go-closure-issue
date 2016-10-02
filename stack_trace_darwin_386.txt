@@ -1,0 +1,114 @@
+io:go-closure-issue jacob$ GOARCH=386 go test
+unexpected fault address 0xd000000
+fatal error: fault
+[signal SIGBUS: bus error code=0x2 addr=0xd000000 pc=0x105182f5]
+
+goroutine 20 [running]:
+runtime.throw(0x1534bb, 0x5)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/panic.go:566 +0x79 fp=0x105b2c98 sp=0x105b2c8c
+runtime.sigpanic()
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/sigpanic_unix.go:21 +0x1ae fp=0x105b2cc4 sp=0x105b2c98
+bitbucket.org/kardianos/rsync.(*RSync).CreateDelta.func2(0x131201, 0x0, 0x0, 0x0, 0x0, 0x105cc000, 0xf000, 0x12000, 0x0, 0x0)
+    /Users/jacob/Projects/gocode/src/bitbucket.org/kardianos/rsync/rsync.go:282 +0x257 fp=0x105b2d04 sp=0x105b2cc4
+bitbucket.org/kardianos/rsync.(*RSync).CreateDelta(0x10563520, 0x1da870, 0x105a4398, 0x0, 0x0, 0x0, 0x105b2f6c, 0x0, 0x0, 0x0, ...)
+    /Users/jacob/Projects/gocode/src/bitbucket.org/kardianos/rsync/rsync.go:356 +0xcd8 fp=0x105b2ef8 sp=0x105b2d04
+_/Users/jacob/go-closure-issue.(*Server).serveOne(0x10566b10, 0x0, 0x0)
+    /Users/jacob/go-closure-issue/server.go:59 +0x276 fp=0x105b2fa0 sp=0x105b2ef8
+_/Users/jacob/go-closure-issue.(*Server).Serve(0x10566b10, 0x0, 0x0)
+    /Users/jacob/go-closure-issue/server.go:79 +0x25 fp=0x105b2fb8 sp=0x105b2fa0
+_/Users/jacob/go-closure-issue.TestSyncing.func1(0x105644c0, 0x10566b10)
+    /Users/jacob/go-closure-issue/rsync_test.go:81 +0x1b fp=0x105b2fd0 sp=0x105b2fb8
+runtime.goexit()
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_386.s:1612 +0x1 fp=0x105b2fd4 sp=0x105b2fd0
+created by _/Users/jacob/go-closure-issue.TestSyncing
+    /Users/jacob/go-closure-issue/rsync_test.go:82 +0xbfa
+
+goroutine 1 [chan receive]:
+testing.(*T).Run(0x10582100, 0x15448e, 0xb, 0x169efc, 0x66a2222a)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:647 +0x2be
+testing.RunTests.func1(0x10582080)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:793 +0x9b
+testing.tRunner(0x10582080, 0x105aeee0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:610 +0x86
+testing.RunTests(0x16a0a8, 0x1e9fd8, 0x1, 0x1, 0x1)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:799 +0x32c
+testing.(*M).Run(0x105aef84, 0x1)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:743 +0x73
+main.main()
+    _/Users/jacob/go-closure-issue/_test/_testmain.go:54 +0xfa
+
+goroutine 19 [select]:
+_/Users/jacob/go-closure-issue.(*Client).Stage(0x10568510, 0x10568540, 0x3, 0x3, 0x0, 0x0)
+    /Users/jacob/go-closure-issue/client.go:252 +0x3fb
+_/Users/jacob/go-closure-issue.TestSyncing(0x10582100)
+    /Users/jacob/go-closure-issue/rsync_test.go:91 +0xe5c
+testing.tRunner(0x10582100, 0x169efc)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:610 +0x86
+created by testing.(*T).Run
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:646 +0x29f
+
+goroutine 21 [semacquire]:
+sync.runtime_notifyListWait(0x105821cc, 0x5)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/sema.go:267 +0x16f
+sync.(*Cond).Wait(0x105821c4)
+    /usr/local/Cellar/go/1.7.1/libexec/src/sync/cond.go:57 +0x87
+io.(*pipe).write(0x10582180, 0x10606006, 0x21d, 0x3fa, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/pipe.go:89 +0x1d8
+io.(*PipeWriter).Write(0x1056a4a8, 0x10606006, 0x21d, 0x3fa, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/pipe.go:156 +0x41
+encoding/gob.(*Encoder).writeMessage(0x10582300, 0x2941a0, 0x1056a4c8, 0x10582320)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/encoder.go:81 +0x2d5
+encoding/gob.(*Encoder).EncodeValue(0x10582300, 0x137e40, 0x105638c0, 0x99, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/encoder.go:249 +0x5d2
+encoding/gob.(*Encoder).Encode(0x10582300, 0x137e40, 0x105638c0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/encoder.go:175 +0x5d
+_/Users/jacob/go-closure-issue.(*Client).dispatch(0x10568510, 0x10568540, 0x3, 0x3, 0x10564500, 0x105645c0, 0x0, 0x0)
+    /Users/jacob/go-closure-issue/client.go:89 +0x379
+_/Users/jacob/go-closure-issue.(*Client).Stage.func1(0x10564540, 0x10568510, 0x10568540, 0x3, 0x3, 0x10564500, 0x105645c0)
+    /Users/jacob/go-closure-issue/client.go:240 +0x43
+created by _/Users/jacob/go-closure-issue.(*Client).Stage
+    /Users/jacob/go-closure-issue/client.go:241 +0x137
+
+goroutine 22 [semacquire]:
+sync.runtime_notifyListWait(0x1058222c, 0xc7)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/sema.go:267 +0x16f
+sync.(*Cond).Wait(0x10582224)
+    /usr/local/Cellar/go/1.7.1/libexec/src/sync/cond.go:57 +0x87
+io.(*pipe).read(0x10582200, 0x1059e000, 0x1000, 0x1000, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/pipe.go:47 +0x234
+io.(*PipeReader).Read(0x1056a4b0, 0x1059e000, 0x1000, 0x1000, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/pipe.go:129 +0x41
+bufio.(*Reader).fill(0x105684e0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/bufio/bufio.go:97 +0x16c
+bufio.(*Reader).Read(0x105684e0, 0x10566b20, 0x1, 0x9, 0x1, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/bufio/bufio.go:209 +0x1b3
+io.ReadAtLeast(0x1da6f0, 0x105684e0, 0x10566b20, 0x1, 0x9, 0x1, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/io.go:307 +0xa5
+io.ReadFull(0x1da6f0, 0x105684e0, 0x10566b20, 0x1, 0x9, 0x2, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/io.go:325 +0x4b
+encoding/gob.decodeUintReader(0x1da6f0, 0x105684e0, 0x10566b20, 0x9, 0x9, 0x0, 0x0, 0x1, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decode.go:119 +0x74
+encoding/gob.(*Decoder).recvMessage(0x105845a0, 0xd4f17)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decoder.go:76 +0x51
+encoding/gob.(*Decoder).decodeTypeSequence(0x105845a0, 0x16a300, 0x105845a0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decoder.go:140 +0x39
+encoding/gob.(*Decoder).DecodeValue(0x105845a0, 0x11fd20, 0x10514120, 0x16, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decoder.go:208 +0x106
+encoding/gob.(*Decoder).Decode(0x105845a0, 0x11fd20, 0x10514120, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decoder.go:185 +0x19d
+_/Users/jacob/go-closure-issue.(*Client).receive(0x10568510, 0x10564500, 0x10564600, 0x0, 0x0)
+    /Users/jacob/go-closure-issue/client.go:169 +0x34d
+_/Users/jacob/go-closure-issue.(*Client).Stage.func2(0x10564580, 0x10568510, 0x10564500, 0x10564600)
+    /Users/jacob/go-closure-issue/client.go:243 +0x2b
+created by _/Users/jacob/go-closure-issue.(*Client).Stage
+    /Users/jacob/go-closure-issue/client.go:244 +0x16f
+
+goroutine 33 [chan receive]:
+bitbucket.org/kardianos/rsync.(*RSync).ApplyDelta(0x10563600, 0x1da890, 0x105e4000, 0x30542000, 0x105a4000, 0x105e6000, 0x1dbc20, 0x1059c060, 0x0, 0x0)
+    /Users/jacob/Projects/gocode/src/bitbucket.org/kardianos/rsync/rsync.go:158 +0x2bc
+_/Users/jacob/go-closure-issue.(*Client).receive.func1(0x105e6040, 0x10568510, 0x105e4000, 0x1056a4e8, 0x1, 0x1, 0x1db440, 0x105a4000, 0x105e6000)
+    /Users/jacob/go-closure-issue/client.go:160 +0x94
+created by _/Users/jacob/go-closure-issue.(*Client).receive
+    /Users/jacob/go-closure-issue/client.go:161 +0x2de
+exit status 2
+FAIL    _/Users/jacob/go-closure-issue  0.123s

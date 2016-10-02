@@ -1,15 +1,15 @@
 package rsync
 
 import (
-	"testing"
-	"fmt"
-	"io/ioutil"
-	"runtime"
-	"path/filepath"
-	"io"
-	"os"
-	"net"
 	"crypto/sha1"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"net"
+	"os"
+	"path/filepath"
+	"runtime"
+	"testing"
 )
 
 const (
@@ -45,8 +45,8 @@ func TestSyncing(t *testing.T) {
 	// Compute the path to the GOROOT bin directory.
 	bin := filepath.Join(runtime.GOROOT(), "bin")
 
-	// Create a temporary directory that will serve as both our root and staging
-	// directory. Ensure that it's cleaned up.
+	// Create a temporary directory that will serve as both our client root and
+	// staging directory. Ensure that it's cleaned up.
 	target, err := ioutil.TempDir("", "rsync")
 	if err != nil {
 		t.Fatal("couldn't create temporary staging directory:", err)

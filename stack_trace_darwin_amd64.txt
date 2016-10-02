@@ -1,0 +1,21 @@
+io:go-closure-issue jacob$ go test
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x0]
+
+goroutine 6 [running]:
+panic(0x14b020, 0xc42000c0b0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/panic.go:500 +0x1a1
+bitbucket.org/kardianos/rsync.(*RSync).CreateDelta.func2(0x1, 0x0, 0x0, 0xc4200f2000, 0xf000, 0x12000, 0x1800, 0x0)
+    /Users/jacob/Projects/gocode/src/bitbucket.org/kardianos/rsync/rsync.go:282 +0x284
+bitbucket.org/kardianos/rsync.(*RSync).CreateDelta(0xc420013d00, 0x217680, 0xc4200b6238, 0x0, 0x0, 0x0, 0xc4200c2ea8, 0x0, 0x0, 0x0, ...)
+    /Users/jacob/Projects/gocode/src/bitbucket.org/kardianos/rsync/rsync.go:356 +0xb6a
+_/Users/jacob/go-closure-issue.(*Server).serveOne(0xc420010e20, 0x0, 0x0)
+    /Users/jacob/go-closure-issue/server.go:59 +0x31e
+_/Users/jacob/go-closure-issue.(*Server).Serve(0xc420010e20, 0x6f211, 0xc42008c180)
+    /Users/jacob/go-closure-issue/server.go:79 +0x2b
+_/Users/jacob/go-closure-issue.TestSyncing.func1(0xc42006e3c0, 0xc420010e20)
+    /Users/jacob/go-closure-issue/rsync_test.go:81 +0x2b
+created by _/Users/jacob/go-closure-issue.TestSyncing
+    /Users/jacob/go-closure-issue/rsync_test.go:82 +0x714
+exit status 2
+FAIL    _/Users/jacob/go-closure-issue  0.097s

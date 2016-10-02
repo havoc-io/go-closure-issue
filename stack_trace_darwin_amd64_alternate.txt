@@ -1,0 +1,131 @@
+io:rsync jacob$ go test -gcflags="-N"
+runtime: pointer 0xc420101e28 to unallocated spanidx=0x80 span.base()=0xc420100000 span.limit=0xc4202a3000 span.state=2
+runtime: found in object at *(0xc4200e09c0+0x10)
+object=0xc4200e09c0 k=0x6210070 s.base()=0xc4200e0000 s.limit=0xc4200e2000 s.sizeclass=3 s.elemsize=32
+ *(object+0) = 0xd7f10
+ *(object+8) = 0xc4200cc240
+ *(object+16) = 0xc420101e28 <==
+ *(object+24) = 0x0
+fatal error: found bad pointer in Go heap (incorrect use of unsafe or cgo?)
+
+goroutine 35 [running]:
+runtime.throw(0x1c5f34, 0x3e)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/panic.go:566 +0x95 fp=0xc420466638 sp=0xc420466618
+runtime.heapBitsForObject(0xc420101e28, 0xc4200e09c0, 0x10, 0xc41fff99ed, 0xc400000000, 0x320440, 0xc42001c728, 0x48)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/mbitmap.go:429 +0x2ba fp=0xc420466690 sp=0xc420466638
+runtime.scanobject(0xc4200e09c0, 0xc42001c728)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/mgcmark.go:1169 +0x170 fp=0xc420466710 sp=0xc420466690
+runtime.gcDrain(0xc42001c728, 0x5)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/mgcmark.go:993 +0x15c fp=0xc420466748 sp=0xc420466710
+runtime.gcBgMarkWorker(0xc42001b500)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/mgc.go:1452 +0x1d1 fp=0xc4204667b8 sp=0xc420466748
+runtime.goexit()
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086 +0x1 fp=0xc4204667c0 sp=0xc4204667b8
+created by runtime.gcBgMarkStartWorkers
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/mgc.go:1341 +0x98
+
+goroutine 1 [chan receive]:
+testing.(*T).Run(0xc4200980c0, 0x1bd8c5, 0xb, 0x1d3c58, 0x5b925)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:647 +0x316
+testing.RunTests.func1(0xc4200980c0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:793 +0x6d
+testing.tRunner(0xc4200980c0, 0xc42003cd70)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:610 +0x81
+testing.RunTests(0x1d3c68, 0x284070, 0x1, 0x1, 0xc42004bea8)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:799 +0x2f5
+testing.(*M).Run(0xc42003cef8, 0x38)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:743 +0x85
+main.main()
+    github.com/havoc-io/mutagen/rsync/_test/_testmain.go:54 +0x20e
+
+goroutine 17 [syscall, locked to thread]:
+runtime.goexit()
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086 +0x1
+
+goroutine 20 [select]:
+github.com/havoc-io/mutagen/rsync.(*Client).Stage(0xc42006e2d0, 0xc42006e320, 0x3, 0x3, 0x0, 0x0)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:256 +0x39f
+github.com/havoc-io/mutagen/rsync.TestSyncing(0xc420098180)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/rsync_test.go:93 +0x159d
+testing.tRunner(0xc420098180, 0x1d3c58)
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:610 +0x81
+created by testing.(*T).Run
+    /usr/local/Cellar/go/1.7.1/libexec/src/testing/testing.go:646 +0x2ec
+
+goroutine 21 [runnable]:
+bitbucket.org/kardianos/rsync.(*RSync).CreateDelta(0xc420073bc0, 0x2737e0, 0xc4200cc238, 0x0, 0x0, 0x0, 0xc420049e38, 0x0, 0x0, 0x0, ...)
+    /Users/jacob/Projects/gocode/src/bitbucket.org/kardianos/rsync/rsync.go:349 +0xe9c
+github.com/havoc-io/mutagen/rsync.(*Server).serveOne(0xc420084c80, 0x0, 0x0)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/server.go:62 +0x674
+github.com/havoc-io/mutagen/rsync.(*Server).Serve(0xc420084c80, 0x0, 0x0)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/server.go:81 +0x51
+github.com/havoc-io/mutagen/rsync.TestSyncing.func1(0xc4200703c0, 0xc420084c80)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/rsync_test.go:83 +0x2b
+created by github.com/havoc-io/mutagen/rsync.TestSyncing
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/rsync_test.go:84 +0x120a
+
+goroutine 22 [semacquire]:
+sync.runtime_notifyListWait(0xc4200982b8, 0xc400000005)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/sema.go:267 +0x122
+sync.(*Cond).Wait(0xc4200982a8)
+    /usr/local/Cellar/go/1.7.1/libexec/src/sync/cond.go:57 +0x80
+io.(*pipe).write(0xc420098240, 0xc42002d006, 0x21d, 0x3fa, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/pipe.go:89 +0x191
+io.(*PipeWriter).Write(0xc4200821c8, 0xc42002d006, 0x21d, 0x3fa, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/pipe.go:156 +0x4c
+encoding/gob.(*Encoder).writeMessage(0xc4200bc0a0, 0x37e2b8, 0xc420074d40, 0xc4200bc0d8)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/encoder.go:81 +0x18d
+encoding/gob.(*Encoder).EncodeValue(0xc4200bc0a0, 0x195220, 0xc4200160c0, 0x99, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/encoder.go:249 +0x49e
+encoding/gob.(*Encoder).Encode(0xc4200bc0a0, 0x195220, 0xc4200160c0, 0x195220, 0xc4200160c0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/encoder.go:175 +0x61
+github.com/havoc-io/mutagen/rsync.(*Client).dispatch(0xc42006e2d0, 0xc42006e320, 0x3, 0x3, 0xc4200704e0, 0xc420070600, 0x0, 0x0)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:93 +0x540
+github.com/havoc-io/mutagen/rsync.(*Client).Stage.func1(0xc420070540, 0xc42006e2d0, 0xc42006e320, 0x3, 0x3, 0xc4200704e0, 0xc420070600)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:244 +0x6a
+created by github.com/havoc-io/mutagen/rsync.(*Client).Stage
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:245 +0x163
+
+goroutine 23 [semacquire]:
+sync.runtime_notifyListWait(0xc420098340, 0xc0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/runtime/sema.go:267 +0x122
+sync.(*Cond).Wait(0xc420098330)
+    /usr/local/Cellar/go/1.7.1/libexec/src/sync/cond.go:57 +0x80
+io.(*pipe).read(0xc420098300, 0xc4200bb000, 0x1000, 0x1000, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/pipe.go:47 +0x102
+io.(*PipeReader).Read(0xc4200821d0, 0xc4200bb000, 0x1000, 0x1000, 0x0, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/pipe.go:129 +0x4c
+bufio.(*Reader).fill(0xc420070420)
+    /usr/local/Cellar/go/1.7.1/libexec/src/bufio/bufio.go:97 +0x10c
+bufio.(*Reader).Read(0xc420070420, 0xc420074d80, 0x1, 0x9, 0x200d99c8, 0x0, 0x2)
+    /usr/local/Cellar/go/1.7.1/libexec/src/bufio/bufio.go:209 +0x1bc
+io.ReadAtLeast(0x2733e0, 0xc420070420, 0xc420074d80, 0x1, 0x9, 0x1, 0xc4201b5680, 0x199, 0xc4200d9a50)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/io.go:307 +0xa4
+io.ReadFull(0x2733e0, 0xc420070420, 0xc420074d80, 0x1, 0x9, 0x1aa44, 0xc4200d9a90, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/io/io.go:325 +0x58
+encoding/gob.decodeUintReader(0x2733e0, 0xc420070420, 0xc420074d80, 0x9, 0x9, 0x111677, 0xc4200d9af0, 0xc4200d9b00, 0x51f90)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decode.go:119 +0x63
+encoding/gob.(*Decoder).recvMessage(0xc42009a100, 0xc4200d9af0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decoder.go:76 +0x57
+encoding/gob.(*Decoder).decodeTypeSequence(0xc42009a100, 0x1d4100, 0xc42009a100)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decoder.go:140 +0x16f
+encoding/gob.(*Decoder).DecodeValue(0xc42009a100, 0x1738a0, 0xc42022f980, 0x16, 0x0, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decoder.go:208 +0xd8
+encoding/gob.(*Decoder).Decode(0xc42009a100, 0x1738a0, 0xc42022f980, 0x1, 0x0)
+    /usr/local/Cellar/go/1.7.1/libexec/src/encoding/gob/decoder.go:185 +0x16d
+github.com/havoc-io/mutagen/rsync.(*Client).receive(0xc42006e2d0, 0xc4200704e0, 0xc420070660, 0x0, 0x0)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:173 +0x517
+github.com/havoc-io/mutagen/rsync.(*Client).Stage.func2(0xc4200705a0, 0xc42006e2d0, 0xc4200704e0, 0xc420070660)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:247 +0x3f
+created by github.com/havoc-io/mutagen/rsync.(*Client).Stage
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:248 +0x1a6
+
+goroutine 24 [chan receive]:
+bitbucket.org/kardianos/rsync.(*RSync).ApplyDelta(0xc420073c80, 0x273820, 0xc4200821e0, 0x37e308, 0xc4200cc000, 0xc420070720, 0x2753a0, 0xc42006c230, 0x0, 0x0)
+    /Users/jacob/Projects/gocode/src/bitbucket.org/kardianos/rsync/rsync.go:158 +0x3ed
+github.com/havoc-io/mutagen/rsync.(*Client).receive.func1(0xc420070780, 0xc42006e2d0, 0xc4200821e0, 0xc420074da0, 0x1, 0x1, 0x274ae0, 0xc4200cc000, 0xc420070720)
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:164 +0xc2
+created by github.com/havoc-io/mutagen/rsync.(*Client).receive
+    /Users/jacob/Projects/gocode/src/github.com/havoc-io/mutagen/rsync/client.go:165 +0x451
+exit status 2
+FAIL    github.com/havoc-io/mutagen/rsync   0.226s
